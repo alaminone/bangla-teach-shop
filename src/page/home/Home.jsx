@@ -1,9 +1,12 @@
+import NavBar from "../../components/nav/NavBar";
+import Bannar from "../../components/nav/bannar/Bannar";
 
 
 const Home = () => {
     return (
-        <div>
-            this is home
+        <div className="mx-5">
+          <NavBar></NavBar>
+          <Bannar></Bannar>
         </div>
     );
 };
