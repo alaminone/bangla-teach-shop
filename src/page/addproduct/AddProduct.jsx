@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import Swal from "sweetalert2";
+import AddBrand from "../../components/addbrand/AddBrand";
 
 
 const AddProduct = () => {
@@ -146,7 +147,7 @@ const AddProduct = () => {
                   <input
                     type="text"
                     name="brandLogo"
-                    placeholder="Enter The Nrand Logo "
+                    placeholder="Enter The Brand Logo "
                     className="input  w-full"
                   />
                 </label>
@@ -178,6 +179,8 @@ const AddProduct = () => {
           <Link to={"/"}>
         <button className="flex items-center mt-4 ml-10 btn text-white bg-blue-300"><IoMdArrowRoundBack className="text-2xl"></IoMdArrowRoundBack> Back to home</button>
         </Link>
+        {/* add brand */}
+        <AddBrand></AddBrand>
         </div>
     );
 };

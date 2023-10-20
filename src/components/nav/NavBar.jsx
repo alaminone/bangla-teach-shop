@@ -7,6 +7,7 @@ const NavBar = () => {
         <li><NavLink to={"/"}>Home</NavLink></li>
         <li><NavLink to={"/addproduct"}>Add Product</NavLink></li>
         <li><NavLink to={"/allproduct"}>All Product</NavLink></li>
+        <li><NavLink to={"/addtocart"}>Add to Cart</NavLink></li>
     </>
 
     return (

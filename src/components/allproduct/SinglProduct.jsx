@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const SinglProduct = ({product}) => {
 
-    const {name,imageURL,} = product;
+    const {name,imageURL,price,brandName} = product;
   return (
     <div>
         <div className="card card-compact  bg-base-100 shadow-xl">
@@ -12,9 +12,10 @@ const SinglProduct = ({product}) => {
       </figure>
   <div className="card-body">
     <h2 className="card-title">{name}</h2>
-    <p></p>
+    <p>Price:${price}</p>
+    <p>Brand:{brandName}</p>
     <div className="card-actions ">
-      <button className="btn w-full bg-blue-300 text-white"></button>
+      <button className="btn w-full bg-blue-300 text-white">View Details </button>
     </div>
   </div>
 </div>

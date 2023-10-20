@@ -7,30 +7,55 @@ import NavBar from "../../components/nav/NavBar";
 import Bannar from "../../components/nav/bannar/Bannar";
 import { useState } from "react";
 import SinglProduct from "../../components/allproduct/SinglProduct";
+import Brand from "../../components/brand/Brand";
 
 
 
 const Home = () => {
   const allproduct = useLoaderData();
+  const products = allproduct && allproduct.productData;
+
+
+  const allBrand = useLoaderData();
+  const brands = allBrand && allproduct.brandData;
 
   const [isShow, setIsShow]= useState(false);
 
     
     return (
-        <div className="mx-5">
+        <div className="mx-5 ">
           <NavBar></NavBar>
           <Bannar></Bannar>
+      {/* brand slide */}
+      <h3 className="text-4xl font-bold text-center my-10">
+          Is With Us
+        </h3>
+      <div className="flex justify-center items-center">
+        
+        <div className="grid grid-cols-2 md:grid-cols-3 my-0 gap-4 ">
+          {
+            brands.map(brand => <Brand
+               key={brand._id}
+               brand={brand}
+               ></Brand>)
+          }
+        </div>
+      </div>
+
+      {/* product */}
+
+
         <div className="my-10">
           <h3 className="text-4xl font-bold text-center">
             Our <span className="text-blue-300"> Product</span>
           </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10">
         {
-         isShow ? allproduct?.map(product => <SinglProduct key={product._id}
+         isShow ? products?.map(product => <SinglProduct key={product._id}
           product={product}
           ></SinglProduct>)
           :
-          allproduct?.slice(0,6).map(product => <SinglProduct key={product._id}
+          products?.slice(0,6).map(product => <SinglProduct key={product._id}
             product={product}
             ></SinglProduct>)
         }
