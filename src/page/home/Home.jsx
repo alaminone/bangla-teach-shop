@@ -2,8 +2,7 @@
 
 import { useLoaderData } from "react-router-dom";
 
-import Footer from "../../components/footer/Footer";
-import NavBar from "../../components/nav/NavBar";
+
 import Bannar from "../../components/nav/bannar/Bannar";
 import { useState } from "react";
 import SinglProduct from "../../components/allproduct/SinglProduct";
@@ -24,7 +23,7 @@ const Home = () => {
     
     return (
         <div className="mx-5 ">
-          <NavBar></NavBar>
+     
           <Bannar></Bannar>
       {/* brand slide */}
       <h3 className="text-4xl font-bold text-center my-10">
@@ -69,7 +68,7 @@ const Home = () => {
         </div>
    
          
-          <Footer></Footer>
+          
         </div>
     );
 };

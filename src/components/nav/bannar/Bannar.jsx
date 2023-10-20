@@ -2,7 +2,7 @@
 
 const Bannar = () => {
     return (
-        <div className="hero min-h-[80vh] rounded-lg" style={{backgroundImage: 'url(https://i.ibb.co/8DpmDnH/ales-nesetril-Im7l-Zjxe-Lhg-unsplash.jpg)'}}>
+        <div className="hero min-h-[90vh] rounded-lg" style={{backgroundImage: 'url(https://i.ibb.co/8DpmDnH/ales-nesetril-Im7l-Zjxe-Lhg-unsplash.jpg)'}}>
         <div className="hero-overlay bg-opacity-80"></div>
         <div className="hero-content text-center text-neutral-content">
           <div className="max-w-md">

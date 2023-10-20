@@ -4,11 +4,13 @@ import Root from "./Root";
 import Home from "../page/home/Home";
 import AddProduct from "../page/addproduct/AddProduct";
 import AllProduct from "../components/allproduct/AllProduct";
+import Error from "../components/error/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root></Root>,
+    errorElement:<Error></Error>,
     children: [
       {
         path: "/",
@@ -35,13 +37,7 @@ const router = createBrowserRouter([
       {
         path: "/allproduct",
         element: <AllProduct></AllProduct>,
-        loader: async () => {
-          const productResponse = await fetch("http://localhost:5001/product");
-          const productData = await productResponse.json();
-          return {
-            productData,
-          };
-        },
+        loader: ()=> fetch("http://localhost:5001/product")
       },
     ],
   },
