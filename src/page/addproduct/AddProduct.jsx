@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { IoMdArrowRoundBack } from 'react-icons/io';
+import Swal from "sweetalert2";
 
 
 const AddProduct = () => {
@@ -13,32 +14,34 @@ const AddProduct = () => {
         const brandName = form.brandName.value;
         const price = form.price.value;
         const description = form.description.value;
+        const category = form.category.value;
+        const brandLogo = form.brandLogo.value;
         
         
        
 
-        const newproduct = {name,imageURL,brandName,price,description};
+        const newproduct = {name,imageURL,brandName,price,description,category,brandLogo};
         console.log(newproduct)
 
-        // fetch("http://localhost:5000/addcoffee",{
-        //     method:"POST",
-        //     headers:{
-        //         'content-type':'application/json'
-        //     },
-        //     body:JSON.stringify(newproduct)
-        // })
-        // .then(res => res.json())
-        // .then(data =>{
-        //     console.log(data)
-        //     if(data.insertedId > 0){
-        //       Swal.fire({
-        //         title: 'Success!',
-        //         text: 'Add Coffee Collection',
-        //         icon: 'success',
-        //         confirmButtonText: 'okh'
-        //       })
-        //     }
-        // })
+        fetch("http://localhost:5001/product",{
+            method:"POST",
+            headers:{
+                'content-type':'application/json'
+            },
+            body:JSON.stringify(newproduct)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            console.log(data)
+            if(data.insertedId){
+              Swal.fire({
+                title: 'Success!',
+                text: 'Product has been added',
+                icon: 'success',
+                confirmButtonText: 'OK'
+              })
+            }
+        })
     }
     return (
         <div >
@@ -49,7 +52,9 @@ const AddProduct = () => {
     
             <div className="text-center">
             <h3 className="text-4xl font-bold">Add New Product</h3>
-            <p className="text-sm text-gray-400 mt-5">It </p>
+            <p className="text-sm font-bold">
+            BanglaTech Hub <br/>Providing reliable tech since 2023
+          </p> 
             </div>
             <div className=" md:flex gap-4 mt-5 mx-5">
              {/* left side form */}
@@ -83,14 +88,9 @@ const AddProduct = () => {
                   />
                 </label>
               </div>
-    
-             </div>
-             {/* right side form */}
-             <div className="flex-1">
-               
-           
-              {/* brandName */}
-              <div className="form-control ">
+
+               {/* brandName */}
+               <div className="form-control ">
                 <label className="label">
                   <span className="label-text font-bold">Brand Name</span>
                 </label>
@@ -103,6 +103,26 @@ const AddProduct = () => {
                   />
                 </label>
               </div>
+    
+             </div>
+             {/* right side form */}
+             <div className="flex-1">
+               
+           {/* category */}
+           <div className="form-control ">
+                <label className="label">
+                  <span className="label-text font-bold">Category</span>
+                </label>
+                <label className="input-group">
+                  <input
+                    type="text"
+                    name="category"
+                    placeholder="Enter product category"
+                    className="input  w-full"
+                  />
+                </label>
+              </div>
+             
               {/* price */}
               <div className="form-control ">
                 <label className="label">
@@ -117,9 +137,24 @@ const AddProduct = () => {
                   />
                 </label>
               </div>
+              {/* brand logo */}
+              <div className="form-control ">
+                <label className="label">
+                  <span className="label-text font-bold">Brand Logo</span>
+                </label>
+                <label className="input-group">
+                  <input
+                    type="text"
+                    name="brandLogo"
+                    placeholder="Enter The Nrand Logo "
+                    className="input  w-full"
+                  />
+                </label>
+              </div>
     
              </div>
             </div>
+            
             {/* description */}
             <div className="form-control mx-5 ">
                 <label className="label">
