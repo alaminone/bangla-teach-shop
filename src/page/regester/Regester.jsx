@@ -1,10 +1,13 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContex } from "../../components/provider/Authprovider";
 
 
 const Regester = () => {
     const {creatUser}= useContext(AuthContex)
+
+    const [rgError , setRgError] = useState('')
+    const [success , setsuccess] = useState('')
 
     const handelRegister = e =>{
       e.preventDefault();
@@ -16,12 +19,17 @@ const Regester = () => {
           const password = form.get("password")
         
           console.log(email,password,name);
+          setRgError('')
+          setsuccess('')
+          
           creatUser(email,password)
           .then(result=>{
             console.log(result.user)
+            setsuccess("Registration successful")
           })
           .catch(error =>{
             console.error(error)
+            setRgError(error.message)
           })
           
     }
@@ -111,6 +119,17 @@ const Regester = () => {
                 <button className="btn mt-6 block w-full select-none rounded-lg bg-blue-700 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Register</button>
               </div>
         </form>
+        {
+            rgError && <div className="alert alert-error">
+            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>{rgError}</span>
+          </div>
+        }{
+            success && <div className="alert alert-success">
+            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+            <span>{success}</span>
+          </div>
+        }
   <p className="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
       Already have an account?
      <Link to={"/login"}> <button
