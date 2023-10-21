@@ -5,6 +5,9 @@ import Home from "../page/home/Home";
 import AddProduct from "../page/addproduct/AddProduct";
 import AllProduct from "../components/allproduct/AllProduct";
 import Error from "../components/error/Error";
+import Details from "../components/homeCard/Details";
+import Moredetails from "../components/moredetails/Moredetails";
+import Update from "../page/update/Update";
 
 const router = createBrowserRouter([
   {
@@ -13,8 +16,9 @@ const router = createBrowserRouter([
     errorElement:<Error></Error>,
     children: [
       {
-        path: "/",
+        path: "/home",
         element: <Home></Home>,
+        errorElement:<Error></Error>,
         loader: async () => {
           const [productResponse, brandResponse] = await Promise.all([
             fetch("http://localhost:5001/product"),
@@ -31,6 +35,11 @@ const router = createBrowserRouter([
         },
       },
       {
+        path:"/viewdetails/:id",
+        element:<Details></Details>,
+        loader: ({ params }) => fetch(`http://localhost:5001/product/${params.id}`)
+      },
+      {
         path: "/addproduct",
         element: <AddProduct></AddProduct>,
       },
@@ -39,6 +48,17 @@ const router = createBrowserRouter([
         element: <AllProduct></AllProduct>,
         loader: ()=> fetch("http://localhost:5001/product")
       },
+      {
+        path:"/moredetails/:id",
+        element:<Moredetails></Moredetails>,
+        loader: ({ params }) => fetch(`http://localhost:5001/product/${params.id}`)
+      
+      },
+      {
+        path:"/update/:id",
+        element:<Update></Update>,
+        loader: ({ params }) => fetch(`http://localhost:5001/product/${params.id}`)
+      }
     ],
   },
 ]);

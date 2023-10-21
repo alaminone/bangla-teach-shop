@@ -5,8 +5,9 @@ import { useLoaderData } from "react-router-dom";
 
 import Bannar from "../../components/nav/bannar/Bannar";
 import { useState } from "react";
-import SinglProduct from "../../components/allproduct/SinglProduct";
+
 import Brand from "../../components/brand/Brand";
+import HomeCard from "../../components/homeCard/HomeCard";
 
 
 
@@ -50,18 +51,19 @@ const Home = () => {
           </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 my-10">
         {
-         isShow ? products?.map(product => <SinglProduct key={product._id}
+         isShow ? products?.map(product => <HomeCard
+          key={product._id}
           product={product}
-          ></SinglProduct>)
+         ></HomeCard>)
           :
-          products?.slice(0,6).map(product => <SinglProduct key={product._id}
+          products?.slice(0,6).map(product => <HomeCard key={product._id}
             product={product}
-            ></SinglProduct>)
+            ></HomeCard>)
         }
     
       </div>
-      <div className="flex justify-end my-5 ">
-    <button onClick={() => setIsShow(!isShow)} className="btn bg-blue-300">
+      <div className="flex  justify-end my-5 ">
+    <button onClick={() => setIsShow(!isShow)} className="btn text-white bg-blue-300">
           {isShow ? "Show Less" : "Show All"}
         </button>
     </div>

@@ -9,7 +9,7 @@ const NavBar = () => {
            isPending ? "pending" : isActive ? "font-semibold text-blue-300 border-b-2 border-blue-300" : ""
          }
         
-        to={"/"}>Home</NavLink></li>
+        to={"/home"}>Home</NavLink></li>
         <li><NavLink
            className={({ isActive, isPending }) =>
            isPending ? "pending" : isActive ? "font-semibold text-blue-300 border-b-2 border-blue-300" : ""
