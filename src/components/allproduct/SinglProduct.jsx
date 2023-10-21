@@ -18,7 +18,7 @@ const SinglProduct = ({ product }) => {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5001/product/${_id}`, {
+        fetch(`https://bangla-tech-server-f9yna5i0a-alamins-projects-be4aa773.vercel.app/product/${_id}`, {
           method: 'DELETE',
         })
           .then((res) => res.json())

@@ -18,7 +18,7 @@ const AddBrand = () => {
         const newbrand = {brandName,brandLogo};
         console.log(newbrand)
 
-        fetch("http://localhost:5001/brand",{
+        fetch("https://bangla-tech-server-f9yna5i0a-alamins-projects-be4aa773.vercel.app//brand",{
             method:"POST",
             headers:{
                 'content-type':'application/json'

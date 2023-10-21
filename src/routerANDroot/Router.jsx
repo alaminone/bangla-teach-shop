@@ -16,6 +16,7 @@ import PrivetRout from "../components/privetrout/PrivetRout";
 
 
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -28,8 +29,8 @@ const router = createBrowserRouter([
         errorElement:<Error></Error>,
         loader: async () => {
           const [productResponse, brandResponse] = await Promise.all([
-            fetch("http://localhost:5001/product"),
-            fetch("http://localhost:5001/brand"),
+            fetch("https://bangla-tech-server-f9yna5i0a-alamins-projects-be4aa773.vercel.app/product"),
+            fetch("https://bangla-tech-server-f9yna5i0a-alamins-projects-be4aa773.vercel.app/brand"),
           ]);
 
           const productData = await productResponse.json();
@@ -44,7 +45,7 @@ const router = createBrowserRouter([
       {
         path:"/viewdetails/:id",
         element:<PrivetRout><Details></Details></PrivetRout>,
-        loader: ({ params }) => fetch(`http://localhost:5001/product/${params.id}`)
+        loader: ({ params }) => fetch(`https://bangla-tech-server-f9yna5i0a-alamins-projects-be4aa773.vercel.app/product/${params.id}`)
       },
       {
         path: "/addproduct",
@@ -53,24 +54,24 @@ const router = createBrowserRouter([
       {
         path: "/allproduct",
         element: <PrivetRout><AllProduct></AllProduct></PrivetRout>,
-        loader: ()=> fetch("http://localhost:5001/product")
+        loader: ()=> fetch("https://bangla-tech-server-f9yna5i0a-alamins-projects-be4aa773.vercel.app/product")
       },
       {
         path:"/moredetails/:id",
         element:<Moredetails></Moredetails>,
-        loader: ({ params }) => fetch(`http://localhost:5001/product/${params.id}`)
+        loader: ({ params }) => fetch(`https://bangla-tech-server-f9yna5i0a-alamins-projects-be4aa773.vercel.app/product/${params.id}`)
       
       },
       {
         path:"/update/:id",
         element:<PrivetRout><Update></Update></PrivetRout>,
-        loader: ({ params }) => fetch(`http://localhost:5001/product/${params.id}`)
+        loader: ({ params }) => fetch(`https://bangla-tech-server-f9yna5i0a-alamins-projects-be4aa773.vercel.app/product/${params.id}`)
       },
       {
         path: "/productsByBrand/:brandId",
         element: <PrivetRout><ProductByBrand></ProductByBrand></PrivetRout>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5001/productsByBrand/${params.brandId}`), 
+          fetch(`https://bangla-tech-server-f9yna5i0a-alamins-projects-be4aa773.vercel.app/productsByBrand/${params.brandId}`), 
       },
      {
       path:"/login",
@@ -79,6 +80,21 @@ const router = createBrowserRouter([
      {
       path:"/regester",
       element:<Regester></Regester>
+     },
+     {
+      path:"/addtocart",
+      element:<PrivetRout>
+      
+      </PrivetRout>
+     },
+     {
+      path:"/dasbord",
+      element:<PrivetRout></PrivetRout>
+     },
+     {
+      path:"/about",
+      element:<PrivetRout></PrivetRout>
+    
      }
     
     ],

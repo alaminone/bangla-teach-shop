@@ -3,146 +3,105 @@ import { Link } from "react-router-dom";
 import { AuthContex } from "../../components/provider/Authprovider";
 
 
-const Regester = () => {
-    const {creatUser}= useContext(AuthContex)
+const Register = () => {
+  const { createUser } = useContext(AuthContex);
 
-    const [rgError , setRgError] = useState('')
-    const [success , setsuccess] = useState('')
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
 
-    const handelRegister = e =>{
-      e.preventDefault();
-      console.log(e.currentTarget);
-          const form = new FormData(e.currentTarget);
-  
-          const name = form.get("name")
-          const email = form.get("email")
-          const password = form.get("password")
-        
-          console.log(email,password,name);
-          setRgError('')
-          setsuccess('')
-          
-          creatUser(email,password)
-          .then(result=>{
-            console.log(result.user)
-            setsuccess("Registration successful")
-          })
-          .catch(error =>{
-            console.error(error)
-            setRgError(error.message)
-          })
-          
+  const [registrationError, setRegistrationError] = useState('');
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+
+    const { name, email, password } = formData;
+    console.log(name)
+   
+    if (password.length < 6) {
+      setRegistrationError('Password must be at least 6 characters long');
+    } else if (!/[A-Z]/.test(password)) {
+      setRegistrationError('Password must contain at least one capital letter');
+    } else if (!/[!@#$%^&*]/.test(password)) {
+      setRegistrationError('Password must contain at least one special character');
+    } else {
+     
+      setRegistrationError('');
+
+      createUser(email, password)
+        .then(result => {
+          console.log(result.user);
+        })
+        .catch(error => {
+          console.error(error);
+          setRegistrationError(error.message);
+        });
     }
-    return (
-        <div>
-        
-          <div className="max-w-6xl mx-auto mt-14 flex justify-center items-center">
-            <div className=" w-3/6">
-  <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-  Register Hear
-  </h4>
-  <p className="mt-1 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
-    Enter your details to register.
-  </p>
-  <form onSubmit={handelRegister} >
-        <div className="form-control">
-            
-            <label className="label">
-              <span className="label-text">Name</span>
-            </label>
-            <input type="text" placeholder="Your Name" className="input input-bordered" required name="name" />
-          </div>
-        
-        <div className="form-control">
-            
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input type="email" placeholder="email" className="input input-bordered" required name="email" />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input type="password" placeholder="password" className="input input-bordered" required name="password" />
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                </label>
-              </div>
-              {/*  */}
-              <div className="inline-flex items-center">
-  <label
-    className="relative -ml-2.5 flex cursor-pointer items-center rounded-full p-3"
-    htmlFor="checkbox"
-    data-ripple-dark="true"
-  >
-    <input
-      type="checkbox"
-      required
-      className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-pink-500 checked:bg-pink-500 checked:before:bg-pink-500 hover:before:opacity-10"
-      id="checkbox"
-    />
-    <span className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-3.5 w-3.5"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-        stroke="currentColor"
-        strokeWidth="1"
-      >
-        <path
-          fillRule="evenodd"
-          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-          clipRule="evenodd"
-        ></path>
-      </svg>
-    </span>
-  </label>
-  <label
-    className="mt-px cursor-pointer select-none font-light text-gray-700"
-    htmlFor="checkbox"
-  >
-    <p className="flex items-center font-sans text-sm font-normal leading-normal text-gray-700 antialiased">
-      I agree the
-      <a
-        className="font-medium transition-colors hover:text-pink-500"
-        href="#"
-      >
-        &nbsp;Terms and Conditions
-      </a>
-    </p>
-  </label>
-</div>
-              {/*  */}
-              <div className="form-control mt-6">
-                <button className="btn mt-6 block w-full select-none rounded-lg bg-blue-700 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Register</button>
-              </div>
-        </form>
-        {
-            rgError && <div className="alert alert-error">
-            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span>{rgError}</span>
-          </div>
-        }{
-            success && <div className="alert alert-success">
-            <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-            <span>{success}</span>
-          </div>
-        }
-  <p className="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
-      Already have an account?
-     <Link to={"/login"}> <button
-        className="font-bold text-xl mb-10 text-blue-700 transition-colors hover:text-blue-700"
-        href="#"
-      >
-        LogIn
-      </button></Link>
-    </p>
-</div>
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto my-10 flex justify-center items-center">
+        <div className="w-3/6">
+          <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+            Register Here
+          </h4>
+          <p className="mt-1 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
+            Enter your details to register.
+          </p>
+          <form onSubmit={handleRegister}>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input type="text" placeholder="Your Name" className="input input-bordered" required name="name" onChange={handleChange} />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Email</span>
+              </label>
+              <input type="email" placeholder="Email" className="input input-bordered" required name="email" onChange={handleChange} />
+            </div>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Password</span>
+              </label>
+              <input type="password" placeholder="Password" className="input input-bordered" required name="password" onChange={handleChange} />
+              <label className="label">
+                <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
+              </label>
+            </div>
+            <div className="form-control mt-6">
+              <button className="btn mt-6 block w-full select-none rounded-lg bg-blue-700 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Register</button>
+            </div>
+          </form>
+          {registrationError && (
+            <div className="alert alert-error">
+              <span>{registrationError}</span>
+            </div>
+          )}
+          <p className="mt-4 block text-center font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
+            Already have an account?
+            <Link to={"/login"}>
+              <button
+                className="font-bold text-xl mb-10 text-blue-700 transition-colors hover:text-blue-700"
+                href="#"
+              >
+                Log In
+              </button>
+            </Link>
+          </p>
         </div>
       </div>
-    );
+    </div>
+  );
 };
 
-export default Regester;
+export default Register;
