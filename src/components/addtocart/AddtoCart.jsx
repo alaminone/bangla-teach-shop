@@ -3,7 +3,7 @@
 const AddtoCart = () => {
     return (
         <div>
-            comingsoon
+            
         </div>
     );
 };
