@@ -1,7 +1,16 @@
-import { NavLink } from "react-router-dom";
-import { FaRegUser } from 'react-icons/fa';
+import { Link, NavLink } from "react-router-dom";
+import { FaRegUser, FaUser } from 'react-icons/fa';
+import { useContext } from "react";
+import { AuthContex } from "../provider/Authprovider";
 
 const NavBar = () => {
+  const {user,logout} = useContext(AuthContex);
+
+  const handellogout = () =>{
+    logout()
+    .then()
+    .catch()
+  }
 
     const navlink = <>
         <li><NavLink 
@@ -9,7 +18,7 @@ const NavBar = () => {
            isPending ? "pending" : isActive ? "font-semibold text-blue-300 border-b-2 border-blue-300" : ""
          }
         
-        to={"/home"}>Home</NavLink></li>
+        to={"/"}>Home</NavLink></li>
         <li><NavLink
            className={({ isActive, isPending }) =>
            isPending ? "pending" : isActive ? "font-semibold text-blue-300 border-b-2 border-blue-300" : ""
@@ -68,7 +77,12 @@ const NavBar = () => {
       <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
        
       
-        <li><a>Logout</a></li>
+        <li>
+          {
+            user ?  <button onClick={handellogout} className=" w-full">Log Out <FaUser></FaUser></button>
+            :
+            <Link to={"/login"}>  <button className="  w-full">LogIn</button></Link>
+          }</li>
       </ul>
     </div>
         </div>

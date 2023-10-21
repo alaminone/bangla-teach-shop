@@ -54,7 +54,7 @@ const SinglProduct = ({ product }) => {
             </div>
             <div>
               <Link to={`/update/${_id}`}>
-                <button className="btn w-full bg-blue-300 text-white">Update</button>
+                <button className="btn w-full bg-blue-300 text-white">Edit</button>
               </Link>
             </div>
           </div>

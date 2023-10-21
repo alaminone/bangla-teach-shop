@@ -8,6 +8,13 @@ import Error from "../components/error/Error";
 import Details from "../components/homeCard/Details";
 import Moredetails from "../components/moredetails/Moredetails";
 import Update from "../page/update/Update";
+import ProductByBrand from "../page/productbybrand/ProductByBrand";
+import Login from "../page/login/Login";
+import Regester from "../page/regester/Regester";
+import PrivetRout from "../components/privetrout/PrivetRout";
+
+
+
 
 const router = createBrowserRouter([
   {
@@ -16,7 +23,7 @@ const router = createBrowserRouter([
     errorElement:<Error></Error>,
     children: [
       {
-        path: "/home",
+        path: "/",
         element: <Home></Home>,
         errorElement:<Error></Error>,
         loader: async () => {
@@ -36,16 +43,16 @@ const router = createBrowserRouter([
       },
       {
         path:"/viewdetails/:id",
-        element:<Details></Details>,
+        element:<PrivetRout><Details></Details></PrivetRout>,
         loader: ({ params }) => fetch(`http://localhost:5001/product/${params.id}`)
       },
       {
         path: "/addproduct",
-        element: <AddProduct></AddProduct>,
+        element: <PrivetRout><AddProduct></AddProduct></PrivetRout>,
       },
       {
         path: "/allproduct",
-        element: <AllProduct></AllProduct>,
+        element: <PrivetRout><AllProduct></AllProduct></PrivetRout>,
         loader: ()=> fetch("http://localhost:5001/product")
       },
       {
@@ -56,9 +63,24 @@ const router = createBrowserRouter([
       },
       {
         path:"/update/:id",
-        element:<Update></Update>,
+        element:<PrivetRout><Update></Update></PrivetRout>,
         loader: ({ params }) => fetch(`http://localhost:5001/product/${params.id}`)
-      }
+      },
+      {
+        path: "/productsByBrand/:brandId",
+        element: <PrivetRout><ProductByBrand></ProductByBrand></PrivetRout>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5001/productsByBrand/${params.brandId}`), 
+      },
+     {
+      path:"/login",
+      element:<Login></Login>
+     },
+     {
+      path:"/regester",
+      element:<Regester></Regester>
+     }
+    
     ],
   },
 ]);
